@@ -13,6 +13,7 @@ export function userReducer(state, { type, payload }) {
       return {
         ...state,
         ...payload,
+        isAuthenticated: true,
       };
     }
     default: {
@@ -20,3 +21,4 @@ export function userReducer(state, { type, payload }) {
     }
   }
 }
+
