@@ -1,13 +1,13 @@
 import React, { Suspense } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Spinner } from "./components/ui";
 import { Header } from "./components/Header";
 import { UserContext, userInitState, ThemeContext } from "./utils/context";
 import { userReducer } from "./utils/reducer";
 import { dispatchUserReducerSetUser } from "./utils/dispatch";
 import { checkTokenApi } from "./utils/services";
-import { RouteIfLoggedIn, RouteIfNotLoggedIn, PrivateRoute } from "./components/Routes";
+import { RouteIfLoggedIn, RouteIfNotLoggedIn } from "./components/Routes";
 import { themes } from "./config/themeAndStyles";
 import { responseType } from "./config/constant";
 
@@ -45,14 +45,19 @@ function Layout() {
         <Spinner/> :
         <div className="wrapper">
          <Header/>
-         <Suspense fallback={Spinner}>
-         <Route to="/" exact>
-            <Home/>
-          </Route>
-          {/* <PrivateRoute to="/dashboard">
+         <Suspense fallback={<Spinner/>}>
+          <Switch>
+
+            <RouteIfLoggedIn to="/dasboard">
               <h1>Dashboard</h1>
-          </PrivateRoute> */}
-         
+            </RouteIfLoggedIn>
+            <RouteIfNotLoggedIn to="/login">
+              <h1>Login</h1>
+            </RouteIfNotLoggedIn>
+            <RouteIfNotLoggedIn to="/signup">
+              <h1>Login</h1>
+            </RouteIfNotLoggedIn>
+          </Switch>
          </Suspense>
         </div> 
      }
