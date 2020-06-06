@@ -37,19 +37,31 @@ export function checkTokenApi(token) {
   if (!token) {
     return Promise.reject();
   }
-  if (process.env.NODE_ENV !== "prod") {
-    return mockAsyncAction({
-      data: {
-        user: {
-          email: "aniketjha898@gmail.com",
-          username: "aniketjha898",
-          userId: "quoquoi1310989011",
-          isAuthenticated: false,
-        },
+  return mockAsyncAction({
+    data: {
+      user: {
+        email: "aniketjha898@gmail.com",
+        username: "aniketjha898",
+        userId: "quoquoi1310989011",
+        isAuthenticated: false,
       },
-      message: "dashboard",
-    }).success();
-  }
-  const urlCheckToken = CHECK_TOKEN + "?token=" + token;
-  return axios.get(urlCheckToken);
+    },
+    message: "dashboard",
+  }).success();
+  // const urlCheckToken = CHECK_TOKEN + "?token=" + token;
+  // return axios.get(urlCheckToken);
+}
+export function fetchResultsForTypingInSearch() {
+  return mockAsyncAction({
+    data: {
+      searchResults: [
+        { label: 'user1', id: 'abcd1', type: 'user' },
+        { label: 'post1', id: 'abcd2', type: 'post' },
+        { label: 'page1', id: 'abcd3', type: 'page' },
+        { label: 'user2', id: 'abcd3', type: 'user' },
+        { label: 'page2', id: 'abcd3', type: 'page' },
+      ],
+    },
+    message: "dashboard",
+  }).success();
 }

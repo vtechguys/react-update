@@ -11,4 +11,4 @@ export const themes = {
 };
 export const uiLoaderStyle = {
 
-};
+};;

@@ -1,6 +1,6 @@
-import { SET_USER, SET_USER_AUTHENTICATED } from "./actions";
-
-export function userReducer(state, { type, payload }) {
+import { SET_USER, SET_USER_AUTHENTICATED, SEARCH_TYPING } from "./actions";
+import { userInitState } from "./context";
+export function userReducer(state, { type, payload = userInitState }) {
   console.log("userReducer", state, type, payload);
   switch (type) {
     case SET_USER: {
@@ -22,3 +22,14 @@ export function userReducer(state, { type, payload }) {
   }
 }
 
+export function searchTypingReducer(state, { type, payload = []}) {
+  console.log("searchTypingReducer", state, type, payload);
+  switch(type) {
+    case SEARCH_TYPING: {
+      return payload;
+    } 
+    default: {
+      return state;
+    }
+  }
+}

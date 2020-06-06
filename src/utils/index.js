@@ -21,3 +21,6 @@ export const setAuthToken = (token = null) => {
     localStorage.removeItem("token");
   }
 };
+export function applyDebouncing() {
+
+}

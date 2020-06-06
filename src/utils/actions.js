@@ -1,2 +1,3 @@
 export const SET_USER = "SET_USER";
 export const SET_USER_AUTHENTICATED = "SET_USER_AUTHENTICATED";
+export const SEARCH_TYPING = 'SEARCH_TYPING';

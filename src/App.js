@@ -1,73 +1,84 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense } from "react";
 import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Spinner } from "./components/ui";
-import { setAuthToken } from "./utils";
-
+import { Header } from "./components/Header";
 import { UserContext, userInitState, ThemeContext } from "./utils/context";
-import { checkTokenApi } from "./utils/services";
 import { userReducer } from "./utils/reducer";
-import { responseType } from "./config/constant";
 import { dispatchUserReducerSetUser } from "./utils/dispatch";
+import { checkTokenApi } from "./utils/services";
+import { RouteIfLoggedIn, RouteIfNotLoggedIn, PrivateRoute } from "./components/Routes";
 import { themes } from "./config/themeAndStyles";
-function App() {
+import { responseType } from "./config/constant";
+
+const Home = React.lazy(() => import("./components/Home"));
+
+function Layout() {
   const [isLoadComplete, setIsLoadComplete] = React.useState(false);
-  const { setUser } = React.useContext(UserContext);
-  console.log(setUser);
-  // Make a check token api call if token exist
+  const { user, setUser } = React.useContext(UserContext);
+
   React.useEffect(() => {
-    console.log("check token");
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (!token) {
       setIsLoadComplete(true);
     } else {
       checkTokenApi(token)
         .then(({ code, data }) => {
           setIsLoadComplete(true);
-          if (code != responseType.SUCCESS) {
-            setAuthToken(null);
-          } else {
-            console.log("here", data.user);
-            setAuthToken(token);
-            setUser(data.user);
+          if (code === responseType.SUCCESS) {
+           return setUser({
+              ...data.user,
+              isAuthenticated: true,
+            });
           }
         })
-        .catch((e) => {
-          console.log(e);
+        .catch(() => {
+          setIsLoadComplete(true);
         });
     }
   }, []);
+
   return (
-    <AppProvider>{!isLoadComplete ? <Spinner /> : <Layout />}</AppProvider>
+   <Router>
+     {
+       !isLoadComplete ? 
+        <Spinner/> :
+        <div className="wrapper">
+         <Header/>
+         <Suspense fallback={Spinner}>
+         <Route to="/" exact>
+            <Home/>
+          </Route>
+          {/* <PrivateRoute to="/dashboard">
+              <h1>Dashboard</h1>
+          </PrivateRoute> */}
+         
+         </Suspense>
+        </div> 
+     }
+   </Router>
   );
+
 }
-
-export default App;
-
-// App provider for all contexts
-function AppProvider({ children }) {
+function App({ children }) {
+  
   // Theme context -- current theme
   const [currentTheme, setCurrentTheme] = React.useState("light");
   const toggleTheme = () => setCurrentTheme(currentTheme === "light" ? "dark": "light" );
+
   // Create a reducer state for user at top level
-  const [user, userDispatch] = React.useReducer(userReducer, userInitState);
   // create a dispatch action for user store to set user
+
+  const [user, userDispatch] = React.useReducer(userReducer, userInitState);
   const setUser = dispatchUserReducerSetUser(userDispatch);
+
   return (
     <ThemeContext.Provider value = { { theme: themes[currentTheme], toggleTheme } }>
       <UserContext.Provider value = { { user, setUser } }>
-        {children}
+        <Layout/>
       </UserContext.Provider>
     </ThemeContext.Provider>
   );
 }
+export default App;
 
-function Layout() {
-  const { user } = React.useContext(UserContext);
-  const { toggleTheme, theme } = React.useContext(ThemeContext);
-  console.log(user);
-  return (
-    <div>
-      <button onClick={() => toggleTheme() } style = { { backgroundColor: theme.bg, color: theme.fg } }> { theme.bg } </button>
-    </div>
-  );
-}
