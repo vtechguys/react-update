@@ -47,16 +47,18 @@ function Layout() {
          <Header/>
          <Suspense fallback={<Spinner/>}>
           <Switch>
-
-            <RouteIfLoggedIn to="/dasboard">
+            {/* <Route to="/" exact>
+              <Home/>
+            </Route> */}
+            <RouteIfLoggedIn path="/dashboard">
               <h1>Dashboard</h1>
             </RouteIfLoggedIn>
-            <RouteIfNotLoggedIn to="/login">
+            {/* <RouteIfNotLoggedIn path="/login">
               <h1>Login</h1>
             </RouteIfNotLoggedIn>
-            <RouteIfNotLoggedIn to="/signup">
+            <RouteIfNotLoggedIn path="/signup">
               <h1>Login</h1>
-            </RouteIfNotLoggedIn>
+            </RouteIfNotLoggedIn> */}
           </Switch>
          </Suspense>
         </div> 
