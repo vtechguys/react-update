@@ -16,3 +16,80 @@ code {
 a {
   text-decoration: none !important;
 }
+.font-small {
+  font-size: 10px;
+}
+.font-avg {
+  font-size: 14px;
+}
+.font-big {
+  font-size: 18px;
+}
+.btn {
+  padding: 5px 10px;
+  border-radius: 2px;
+  border: 1px solid #000;
+  background-color: #000;
+  color: #fff;
+}
+.container-fluid {
+  width: 100%;
+}
+.container {
+  width: 80%;
+}
+.justify_center {
+  justify-content: center;
+}
+.justify_sbw {
+  justify-content: space-between;
+}
+.align_center {
+  align-items: center;
+}
+.align_sbw {
+  align-items: space-between;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.center {
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+}
+.headerHeight {
+  height: 50px;
+  margin-bottom: 10px;
+}
+.contentHeight {
+  height: calc(100vh - 65px);
+}
+.height100p {
+  height: 100%;
+}
+.height80p {
+  height: 80%;
+}
+.p8 {
+  padding: 8px;
+}
+.pl8 {
+  padding-left: 8px;
+}
+.p12 {
+  padding: 12px;
+}
+.p16 {
+  padding: 16px;
+}
+.p20 {
+  padding: 20px;
+}
+.disabled {
+  cursor: not-allowed;
+}
+.ptr {
+  cursor: pointer;
+}

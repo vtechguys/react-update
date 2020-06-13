@@ -23,7 +23,7 @@
 .Loader:after {
   position: absolute;
   top: 0;
-  content: '';
+  content: "";
 }
 .Loader:before {
   left: -1.5em;
@@ -57,9 +57,35 @@
     height: 5em;
   }
 }
-.avatar {
+.Avatar {
   vertical-align: middle;
   min-width: 30px;
   min-height: 30px;
   border-radius: 50%;
+}
+.Input_Container {
+  width: 100%;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+}
+.Input_Container .Input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgb(175, 174, 174);
+  border-radius: 2px;
+}
+.Input_Container label {
+  margin-bottom: 4px;
+}
+
+.Input_Container .Input_Error {
+  border-color: rgb(255, 5, 5);
+}
+.Input_Container .Error {
+  width: 100%;
+  color: rgb(255, 5, 5);
+  padding: 0;
+  margin-top: 2px;
 }

@@ -9,7 +9,7 @@ axios.defaults.BASE_URL = BASE_URL;
 export const setAuthToken = (token = null) => {
   if (token) {
     // Apply to every request
-    const uuid = axios.defaults.headers.common["x-uuid"] =  generateUUID();
+    const uuid = (axios.defaults.headers.common["x-uuid"] = generateUUID());
     localStorage.setItem("x-uuid", uuid);
     axios.defaults.headers.common["Authorization"] = token;
     localStorage.setItem("token", token);
@@ -21,6 +21,9 @@ export const setAuthToken = (token = null) => {
     localStorage.removeItem("token");
   }
 };
-export function applyDebouncing() {
-
-}
+export const isEmpty = (value) => ( 
+  ( !value ) ||
+  ( typeof value === "string" && value.trim() ) ||
+  ( typeof value === "object" && Object.keys(value).length === 0 ) || 
+  ( Array.isArray(value) && value.length === 0 )
+);

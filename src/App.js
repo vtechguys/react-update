@@ -1,24 +1,25 @@
 import React, { Suspense } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Spinner } from "./components/ui";
-import { Header } from "./components/Header";
-import { UserContext, userInitState, ThemeContext } from "./utils/context";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import { UserContext, userInitState } from "./utils/context";
 import { userReducer } from "./utils/reducer";
 import { dispatchUserReducerSetUser } from "./utils/dispatch";
 import { checkTokenApi } from "./utils/services";
-import { RouteIfLoggedIn, RouteIfNotLoggedIn } from "./components/Routes";
-import { themes } from "./config/themeAndStyles";
 import { responseType } from "./config/constant";
+import { Spinner } from "./components/ui";
+import { Header } from "./components/Header";
 
 const Home = React.lazy(() => import("./components/Home"));
+const Auth = React.lazy(() => import("./components/Auth"));
 
 function Layout() {
   const [isLoadComplete, setIsLoadComplete] = React.useState(false);
-  const { user, setUser } = React.useContext(UserContext);
+  const { setUser } = React.useContext(UserContext);
 
   React.useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
       setIsLoadComplete(true);
     } else {
@@ -26,8 +27,8 @@ function Layout() {
         .then(({ code, data }) => {
           setIsLoadComplete(true);
           if (code === responseType.SUCCESS) {
-           return setUser({
-              ...data.user,
+            return setUser({
+              ...(data && data.user),
               isAuthenticated: true,
             });
           }
@@ -39,39 +40,28 @@ function Layout() {
   }, []);
 
   return (
-   <Router>
-     {
-       !isLoadComplete ? 
-        <Spinner/> :
-        <div className="wrapper">
-         <Header/>
-         <Suspense fallback={<Spinner/>}>
-          <Switch>
-            {/* <Route to="/" exact>
-              <Home/>
-            </Route> */}
-            <RouteIfLoggedIn path="/dashboard">
-              <h1>Dashboard</h1>
-            </RouteIfLoggedIn>
-            {/* <RouteIfNotLoggedIn path="/login">
-              <h1>Login</h1>
-            </RouteIfNotLoggedIn>
-            <RouteIfNotLoggedIn path="/signup">
-              <h1>Login</h1>
-            </RouteIfNotLoggedIn> */}
-          </Switch>
-         </Suspense>
-        </div> 
-     }
-   </Router>
+    <Router>
+      {!isLoadComplete ? (
+        <Spinner />
+      ) : (
+        <div className="container-fluid column">
+          <Header />
+          <Suspense fallback={<Spinner />}>
+            <Switch>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/auth">
+                <Auth />
+              </Route>
+            </Switch>
+          </Suspense>
+        </div>
+      )}
+    </Router>
   );
-
 }
 function App({ children }) {
-  
-  // Theme context -- current theme
-  const [currentTheme, setCurrentTheme] = React.useState("light");
-  const toggleTheme = () => setCurrentTheme(currentTheme === "light" ? "dark": "light" );
 
   // Create a reducer state for user at top level
   // create a dispatch action for user store to set user
@@ -80,12 +70,9 @@ function App({ children }) {
   const setUser = dispatchUserReducerSetUser(userDispatch);
 
   return (
-    <ThemeContext.Provider value = { { theme: themes[currentTheme], toggleTheme } }>
-      <UserContext.Provider value = { { user, setUser } }>
-        <Layout/>
-      </UserContext.Provider>
-    </ThemeContext.Provider>
+    <UserContext.Provider value={{ user, setUser }}>
+      <Layout />
+    </UserContext.Provider>
   );
 }
 export default App;
-
