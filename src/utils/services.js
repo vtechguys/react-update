@@ -79,3 +79,17 @@ export function loginApi({ loginId, password }) {
     }
   }).barRequest();
 }
+export function takeLongTimeApi() {
+  console.log('Fired a long time taking api')
+  return mockAsyncAction({
+    data: {
+      user: {
+        email: "aniketjha898@gmail.com",
+        username: "aniketjha898",
+        userId: "quoquoi1310989011",
+        isAuthenticated: false,
+      },
+    },
+    message: "dashboard",
+  }, 5000).success();
+}

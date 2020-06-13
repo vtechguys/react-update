@@ -38,7 +38,6 @@ function Login(props) {
   React.useEffect(() => {
     if (isSubmitting && formData) {
       loginApi(formData).then(({ code, data, message, errors }) => {
-        console.log(code, errors);
         if (code === 400) {
           setFormData(null);
           setIsSubmitting(false);
@@ -93,7 +92,6 @@ function SignUp(props) {
   React.useEffect(() => {
     if (isSubmitting && formData) {
       loginApi(formData).then(({ code, data, message, errors }) => {
-        console.log(code, errors);
         if (code === 400) {
           setFormData(null);
           setIsSubmitting(false);
@@ -149,7 +147,6 @@ function ForgotPassword(props) {
   React.useEffect(() => {
     if (isSubmitting && formData) {
       loginApi(formData).then(({ code, data, message, errors }) => {
-        console.log(code, errors);
         if (code === 400) {
           setFormData(null);
           setIsSubmitting(false);
@@ -205,7 +202,6 @@ function ResetPassword(props) {
   React.useEffect(() => {
     if (isSubmitting && formData) {
       loginApi(formData).then(({ code, data, message, errors }) => {
-        console.log(code, errors);
         if (code === 400) {
           setFormData(null);
           setIsSubmitting(false);
@@ -259,7 +255,6 @@ function ChangePassword(props) {
   React.useEffect(() => {
     if (isSubmitting && formData) {
       loginApi(formData).then(({ code, data, message, errors }) => {
-        console.log(code, errors);
         if (code === 400) {
           setFormData(null);
           setIsSubmitting(false);

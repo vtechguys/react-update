@@ -9,7 +9,6 @@ import {
 } from "./actions";
 import { userInitState } from "./context";
 export function userReducer(state, { type, payload = userInitState }) {
-  console.log("userReducer", state, type, payload);
   switch (type) {
     case SET_USER: {
       return {
@@ -31,7 +30,6 @@ export function userReducer(state, { type, payload = userInitState }) {
 }
 
 export function searchTypingReducer(state, { type, payload = [] }) {
-  console.log("searchTypingReducer", state, type, payload);
   switch (type) {
     case SEARCH_TYPING: {
       return payload;

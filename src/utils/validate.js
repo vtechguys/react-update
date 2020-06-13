@@ -7,6 +7,5 @@ export const validatePassword = (password) => {
   return true;
 };
 export const validateLoginId = (loginId) => {
-  console.log(loginId);
   return loginId  === "qwerty";
 };

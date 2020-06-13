@@ -1,5 +1,6 @@
 import React from "react";
 import "./ui.css";
+import { useHistory } from "react-router-dom";
 export const Spinner = () => {
   return <div className="Loader"></div>;
 };
@@ -48,4 +49,27 @@ export const Input = ({
     </div>
   );
 };
-
+export const Card = ({ children = (<></>) , path, className = ""}) => {
+  const history = useHistory();
+  const onClick = () => {
+    if (path) {
+      return history.push(path);
+    }
+  };
+  return (
+    <div className={"column Card" + className} onClick={onClick}>
+      {children}
+    </div>
+  );
+};
+export const ProfileCardPlaceholder = () => {
+  return (
+    <Card className="container-fluid ProfilePlaceholder">
+        <div className="container-fluid ProfileImage"></div>
+        <div className="container-fluid ProfileContainer">
+          <div></div>
+          <div></div>
+        </div>
+    </Card>
+  );
+};

@@ -1,10 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
-export default function Home() {
+import React, { Suspense } from "react";
+import { ProfileCardPlaceholder, Spinner } from "./ui";
+import { takeLongTimeApi } from "../utils/services";
+
+const Profile = React.lazy( () => import ("./Profile") )
+
+
+export default function Home(props) {
+  const [isLoadingComplelte, setIsLoadingComplete] = React.useState(false);
+  React.useEffect(() => {
+     takeLongTimeApi()
+     .then(()=> {
+       setIsLoadingComplete(true);
+     });
+  });
   return (
     <>
     <h1>home</h1>;
-    <Link to="/auth/login">aa</Link>
+      <div className="container-fluid row">
+        {
+          !isLoadingComplelte ?
+          <div>
+            <Spinner/>
+          </div> :
+          <div className="ProfileCard">
+            <Suspense fallback={<ProfileCardPlaceholder/>}>
+              <Profile/>         
+            </Suspense>
+          </div>
+        }
+      </div>
     </>
   )
 }

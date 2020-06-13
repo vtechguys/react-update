@@ -1,3 +1,6 @@
+#beforeReact {
+  display: none;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -53,6 +56,10 @@ a {
 .column {
   display: flex;
   flex-direction: column;
+}
+.row {
+  display: flex;
+  flex-direction: row;
 }
 .center {
   justify-self: center;

@@ -107,7 +107,6 @@ export function Header(props) {
   React.useEffect(() => {
     if (isUser) {
       // subscribe to notifications
-      console.log("Run");
     }
   });
 

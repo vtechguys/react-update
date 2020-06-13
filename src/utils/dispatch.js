@@ -1,13 +1,11 @@
 import { SET_USER, SET_USER_AUTHENTICATED, SEARCH_TYPING, FORM_INPUT_CHANGE, FORM_INPUT_ERROR,  FORM_INPUT_ERRORS, FORM_INPUT_VALID } from "./actions";
 export const dispatchUserReducerSetUser = (dispatch) => (user) => {
-  console.log("dispatchUserReducerSetUser", user);
   return dispatch({
     type: SET_USER,
     payload: user,
   });
 };
 export const dispatchUserReducerSetUserAuth = (dispatch) => (user) => {
-  console.log("dispatchUserReducerSetUserAuth", user);
   return dispatch({
     type: SET_USER_AUTHENTICATED,
     payload: user,
