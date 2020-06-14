@@ -8,7 +8,7 @@ import { UserContext } from "../utils/context";
 import { responseType } from "../config/constant";
 import { Link } from "react-router-dom";
 
-export function Header(props) {
+export function Header({isLoadComplete}) {
   const [searchBoxValue, setSearchBoxValue] = React.useState("");
   const [searchResults, searchResultsDispatch] = React.useReducer(
     searchTypingReducer,
@@ -80,10 +80,10 @@ export function Header(props) {
   if (!isUser) {
     navTabsJsx = (
       <>
-        <Link className="nav-item" to="/auth/login">
+        <Link className="NavItem font-big cursor_ptr ml8" to="/auth/login">
           Login
         </Link>
-        <Link className="nav-item" to="/auth/signup">
+        <Link className="NavItem  font-big cursor_ptr ml8" to="/auth/signup">
           SignUp
         </Link>
       </>
@@ -91,13 +91,13 @@ export function Header(props) {
   } else {
     navTabsJsx = (
       <>
-        <Link className="nav-item" to="/dashboard">
+        <Link className="NavItem font-big cursor_ptr ml8" to="/dashboard">
           Dashbard
         </Link>
-        <Link className="nav-item" to="/posts">
+        <Link className="NavItem font-big cursor_ptr ml8" to="/posts">
           Posts
         </Link>
-        <div className="nav-item" onClick={() => setUser()}>
+        <div className="NavItem font-big cursor_ptr ml8" onClick={() => setUser()}>
           Logout
         </div>
       </>
@@ -109,10 +109,13 @@ export function Header(props) {
       // subscribe to notifications
     }
   });
-
+  if (!isLoadComplete) {
+    return <header className="container-fluid Header headerHeight"></header>
+  }
   return (
-    <header className="header headerHeight">
-      <div className="brand-search">
+    <header className="container-fluid row align_center justify_center Header headerHeight">
+      <div className="row justify_sbw  HeaderContent">
+      <div className="Brand row justify_evn align_center">
         <Link to="/">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/150px-Unofficial_JavaScript_logo_2.svg.png"
@@ -133,7 +136,8 @@ export function Header(props) {
           </form>
         )}
       </div>
-      <nav className="nav">{navTabsJsx}</nav>
+      <nav className="Nav row justify_end align_center">{navTabsJsx}</nav>
+      </div>
     </header>
   );
 }

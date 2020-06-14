@@ -1,8 +1,8 @@
 import React from "react";
 import "./ui.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import SpinnerGif from "./spinner.gif";
-import { styleSpinner, styleAvatar } from "./styles";
+import { styleSpinner, styleAvatar, styleCircle } from "./styles";
 export const Spinner = () => {
   return <img src={SpinnerGif} alt="Loading..." style={styleSpinner}/>;
 };
@@ -59,19 +59,26 @@ export const Card = ({ children = (<></>) , path, className = ""}) => {
     }
   };
   return (
-    <div className={"column Card" + className} onClick={onClick}>
+    <div className={"Card column  " + className} onClick={onClick}>
       {children}
     </div>
   );
 };
-export const ProfileCardPlaceholder = () => {
+export const Circle = ({className="" }) => {
+  return <div className={"circle " + className}></div>
+};
+const img = 'https://thedailyfandom.com/wp-content/uploads/2014/09/monkey-d-luffy-2-years-later-pictures-4851.jpg'
+export const ProfilePic = ({ image = img , link, username }) => {
   return (
-    <Card className="container-fluid ProfilePlaceholder">
-        <div className="container-fluid ProfileImage"></div>
-        <div className="container-fluid ProfileContainer">
-          <div></div>
-          <div></div>
-        </div>
-    </Card>
+    <div className="container-fluid column justify_center align_center">
+        <Link to={link}>
+        { !image ?
+           <div className="ProfileImage cursor_ptr">
+           </div>
+           : 
+           <img src={image} alt={username} className="ProfileImage  cursor_ptr"/>        
+        }
+        </Link>
+    </div>
   );
 };

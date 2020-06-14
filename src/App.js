@@ -13,13 +13,12 @@ import { Header } from "./components/Header";
 const Home = React.lazy(() => import("./components/Home"));
 const Auth = React.lazy(() => import("./components/Auth"));
 
-
 const styles = {
   LayoutContainer: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
 };
 function Layout() {
@@ -48,31 +47,34 @@ function Layout() {
   }, []);
 
   return (
-    <div style={styles.LayoutContainer}>
-    <Router>
-      {!isLoadComplete ? (
-        <Spinner />
-      ) : (
-       <>
-          <Header />
-          <Suspense fallback={<Spinner />}>
-            <Switch>
-              <Route path="/" exact>
-                <Home />
-              </Route>
-              <Route path="/auth">
-                <Auth />
-              </Route>
-            </Switch>
-          </Suspense>
-        </>
-      )}
-    </Router>
+    <div className="container-fluid column">
+      <Router>
+        <Header isLoadComplete={isLoadComplete}/>
+        {!isLoadComplete ? (
+            <div className="container-fluid column contentHeight absCenter">
+              <Spinner/>
+            </div>
+) : (
+          <div className="container-fluid column contentHeight align_center">
+            <div className="container column">
+              <Suspense fallback={<Spinner />}>
+                <Switch>
+                  <Route path="/" exact>
+                    <Home />
+                  </Route>
+                  <Route path="/auth">
+                    <Auth />
+                  </Route>
+                </Switch>
+              </Suspense>
+            </div>
+          </div>
+        )}
+      </Router>
     </div>
   );
 }
 function App({ children }) {
-
   // Create a reducer state for user at top level
   // create a dispatch action for user store to set user
 

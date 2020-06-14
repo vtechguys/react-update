@@ -1,3 +1,5 @@
+
+export const PlaceholderGrayColor = '#bbb';
 export const styleSpinner = {
     alignSelf: 'center',
     justifySelf: 'center',
@@ -9,4 +11,11 @@ export const styleAvatar = {
     minWidth: 30,
     minHeight: 30,
     borderRadius: '50%'
+};
+export const styleProfileCardContainer = {
+    maxWidth: 150,
+    maxHeight: 250,
+};
+export const styleCircle = {
+ 
 };
