@@ -1,11 +1,13 @@
 import React from "react";
 import "./ui.css";
 import { useHistory } from "react-router-dom";
+import SpinnerGif from "./spinner.gif";
+import { styleSpinner, styleAvatar } from "./styles";
 export const Spinner = () => {
-  return <div className="Loader"></div>;
+  return <img src={SpinnerGif} alt="Loading..." style={styleSpinner}/>;
 };
 export const Avatar = ({ src, alt, name }) => {
-  return <img className="Avatar" src={src} alt={alt ? alt : name} />;
+  return <img style={styleAvatar} src={src} alt={alt ? alt : name} />;
 };
 export const Input = ({
   onChange = () => {},

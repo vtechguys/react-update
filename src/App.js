@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-import "./App.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -14,6 +13,15 @@ import { Header } from "./components/Header";
 const Home = React.lazy(() => import("./components/Home"));
 const Auth = React.lazy(() => import("./components/Auth"));
 
+
+const styles = {
+  LayoutContainer: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+};
 function Layout() {
   const [isLoadComplete, setIsLoadComplete] = React.useState(false);
   const { setUser } = React.useContext(UserContext);
@@ -40,11 +48,12 @@ function Layout() {
   }, []);
 
   return (
+    <div style={styles.LayoutContainer}>
     <Router>
       {!isLoadComplete ? (
         <Spinner />
       ) : (
-        <div className="container-fluid column">
+       <>
           <Header />
           <Suspense fallback={<Spinner />}>
             <Switch>
@@ -56,9 +65,10 @@ function Layout() {
               </Route>
             </Switch>
           </Suspense>
-        </div>
+        </>
       )}
     </Router>
+    </div>
   );
 }
 function App({ children }) {
